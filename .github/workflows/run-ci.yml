@@ -8,3 +8,5 @@ on:
 jobs:
     call-resuable-workflows:
         uses: aggarwalmegha/test-github-actions/.github/workflows/pull-request.yml@test-branch
+        with:
+            ci-env: node
