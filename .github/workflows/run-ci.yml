@@ -43,4 +43,5 @@ jobs:
           echo "the value is $badge"
           sed -i "s#<UNIT_TEST_PLACEHOLDER>#$badge#g" README.md
 
+          content=$(<README.md)
           echo "the new content is $content"
