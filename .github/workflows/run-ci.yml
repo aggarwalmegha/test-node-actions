@@ -1,12 +1,33 @@
 name: Run the action
 
 on:
-    push:
-        branches:
-            - main
+  push:
+    branches:
+      - "*"
 
 jobs:
-    call-resuable-workflows:
-        uses: aggarwalmegha/test-github-actions/.github/workflows/pull-request.yml@test-branch
-        with:
-            ci-env: node
+  my_test_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Test Code
+        id: unit-tests
+        run: |
+          # Run your tests here and capture the result in a variable
+          echo "TEST_LABEL=Passed" >> $GITHUB_OUTPUT
+
+      - name: Set Badge Color Based on Test Result
+        id: badge-color-generator
+        run: |
+          if [ "${{ steps.unit-tests.outputs.TEST_LABEL }}" == "Passed" ]; then
+            echo badge_color="brightgreen" >> $GITHUB_OUTPUT
+          else
+            badge_color="red" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create and Display the Badge
+        run: |
+          badge="[![Unit Tests](https://img.shields.io/badge/Unit_Test-${{ steps.unit-tests.outputs.TEST_LABEL }}-${{ steps.badge-color-generator.outputs.badge_color }})]"
+          sed -i "s/<UNIT_TEST_PLACEHOLDER>/$badge/g" README.md
