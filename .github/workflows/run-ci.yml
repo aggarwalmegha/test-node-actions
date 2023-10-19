@@ -30,4 +30,4 @@ jobs:
       - name: Create and Display the Badge
         run: |
           badge="[![Unit Tests](https://img.shields.io/badge/Unit_Test-${{ steps.unit-tests.outputs.TEST_LABEL }}-${{ steps.badge-color-generator.outputs.badge_color }})]"
-          sed -i "s/<UNIT_TEST_PLACEHOLDER>/$badge/g" README.md
+          sed -i "s#<UNIT_TEST_PLACEHOLDER>#$badge#g" README.md
