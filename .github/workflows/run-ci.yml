@@ -35,10 +35,12 @@ jobs:
           echo "the content is $content"
 
           # Replace a specific placeholder with the badge, e.g., <BADGE_PLACEHOLDER>
-          updated_content="${content//<BADGE_PLACEHOLDER>/$badge}"
+          updated_content="${content//<UNIT_TEST_PLACEHOLDER>/$badge}"
 
           # Overwrite the README with the updated content
           echo "$updated_content" > README.md
 
           echo "the value is $badge"
           sed -i "s#<UNIT_TEST_PLACEHOLDER>#$badge#g" README.md
+
+          echo "the new content is $content"
