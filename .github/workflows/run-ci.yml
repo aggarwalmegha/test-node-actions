@@ -30,5 +30,15 @@ jobs:
       - name: Create and Display the Badge
         run: |
           badge="https://img.shields.io/badge/Unit_Test-${{ steps.unit-tests.outputs.TEST_LABEL }}-${{ steps.badge-color-generator.outputs.badge_color }}"
+          # Read the current README content
+          content=$(<README.md)
+          echo "the content is $content"
+
+          # Replace a specific placeholder with the badge, e.g., <BADGE_PLACEHOLDER>
+          updated_content="${content//<BADGE_PLACEHOLDER>/$badge}"
+
+          # Overwrite the README with the updated content
+          echo "$updated_content" > README.md
+
           echo "the value is $badge"
           sed -i "s#<UNIT_TEST_PLACEHOLDER>#$badge#g" README.md
